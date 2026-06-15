@@ -1,7 +1,84 @@
+"use client";
+
+import { useRef, useState } from "react";
+import { Play } from "lucide-react";
 import Hero from "./components/Hero";
 import Ticker from "./components/Ticker";
-import CategoryCard from "./components/CategoryCard";
 import AccessSection from "./components/AccessSection";
+
+const previewVideos = [
+  {
+    src: "https://vk25cdn.viralkand.com/8000/9364.mp4",
+    poster: "https://viralkand.com/wp-content/uploads/9364.jpg",
+    label: "FEED 01",
+  },
+  {
+    src: "https://vk25cdn.viralkand.com/8000/9353.mp4",
+    poster: "https://viralkand.com/wp-content/uploads/9353.jpg",
+    label: "FEED 02",
+  },
+  {
+    src: "https://vk25cdn.viralkand.com/8000/9334.mp4",
+    poster: "https://viralkand.com/wp-content/uploads/9334.jpg",
+    label: "FEED 03",
+  },
+  {
+    src: "https://vk25cdn.viralkand.com/8000/9331.mp4",
+    poster: "https://viralkand.com/wp-content/uploads/9331.jpg",
+    label: "FEED 04",
+  },
+];
+
+function VideoCard({ src, poster, label, caption }) {
+  const videoRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      video.play();
+      setPlaying(true);
+    } else {
+      video.pause();
+      setPlaying(false);
+    }
+  };
+
+  return (
+    <div className="group relative overflow-hidden rounded-2xl border border-[var(--line)] bg-black/5">
+      <span className="absolute top-3 left-3 z-10 font-mono text-xs tracking-[0.2em] text-saffron bg-black/60 px-2 py-1 rounded">
+        {label}
+      </span>
+
+      <video
+        ref={videoRef}
+        src={src}
+        poster={poster}
+        className="w-full aspect-video object-cover"
+        playsInline
+        loop
+        muted
+        onClick={togglePlay}
+        onEnded={() => setPlaying(false)}
+      />
+
+      <button
+        onClick={togglePlay}
+        className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"
+        aria-label={playing ? "Pause video" : "Play video"}
+      >
+        {!playing && (
+          <span className="flex items-center justify-center w-14 h-14 rounded-full bg-white/90">
+            <Play className="w-6 h-6 text-chai" fill="currentColor" />
+          </span>
+        )}
+      </button>
+
+     
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -21,30 +98,9 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-            <CategoryCard
-              number="FEED 01"
-              title="Memes that actually land"
-              description="The funniest desi memes of the day, picked from across the internet before they hit your main feed — no recycled templates."
-              accent="saffron"
-            />
-            <CategoryCard
-              number="FEED 02"
-              title="Infotainment, bite-sized"
-              description="Quick explainers and curious facts about India, current affairs and culture — made to be read in under a minute."
-              accent="teal"
-            />
-            <CategoryCard
-              number="FEED 03"
-              title="News that didn't trend (but should've)"
-              description="Stories worth knowing that got buried under the news cycle, summarised straight and without the spin."
-              accent="red"
-            />
-            <CategoryCard
-              number="FEED 04"
-              title="Politics, unpacked"
-              description="Sharp commentary and context on what's happening in Indian politics — opinionated, but always clearly labelled as such."
-              accent="saffron"
-            />
+            {previewVideos.map((video) => (
+              <VideoCard key={video.label} {...video} />
+            ))}
           </div>
         </div>
       </section>
