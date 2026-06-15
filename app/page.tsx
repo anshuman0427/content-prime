@@ -2,9 +2,9 @@
 
 import { useRef, useState } from "react";
 import { Play } from "lucide-react";
-import Hero from "./components/Hero";
-import Ticker from "./components/Ticker";
-import AccessSection from "./components/AccessSection";
+import Hero from "../components/Hero";
+import Ticker from "../components/Ticker";
+import AccessSection from "../components/AccessSection";
 
 const previewVideos = [
   {
