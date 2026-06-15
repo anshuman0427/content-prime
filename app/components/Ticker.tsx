@@ -1,11 +1,10 @@
 const TAGS = [
-  "MEMES",
-  "POLITICS",
-  "INFOTAINMENT",
-  "BREAKING",
-  "DESI HUMOUR",
-  "EXPLAINERS",
-  "HOT TAKES",
+  "DESI MMS",
+  "DESI MAAL",
+  "INDIAN LEAKED CLIPS",
+  "DESI FUCK",
+  "DESI SEX",
+  "HOT VIDEOS",
   "VIRAL CLIPS",
 ];
 
